@@ -6,9 +6,9 @@ import './App.css';
 class App extends Component {
   state = {
     url: {
-      users: 'http://localhost/users',
-      news: 'http://localhost/news',
-      status: 'http://localhost/status'
+      users: 'http://localhost:3002/users',
+      news: 'http://localhost:3002/news',
+      status: 'http://localhost:3002/status'
     },
     users: [],
     news: [],

@@ -11,10 +11,13 @@ var app = express();
 const apiController = require('./controllers/api');
 
 // socket.io setup
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-server.listen(80);
+const PORT_SOCKET = 3002;
+server.listen(PORT_SOCKET, () => {
+  console.log(`socket listening on port ${PORT_SOCKET}`);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

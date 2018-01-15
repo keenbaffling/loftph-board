@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 exports.getNews = cb => {
-  axios('/api/v1/news')
+  axios('http://localhost:3001/api/v1/news')
     .then(res => res.data)
     .then(data => cb(null, data))
     .catch(err => {
@@ -10,7 +10,7 @@ exports.getNews = cb => {
 };
 
 exports.getStatus = cb => {
-  axios('/api/v1/status')
+  axios('http://localhost:3001/api/v1/status')
     .then(res => res.data)
     .then(data => cb(null, data))
     .catch(err => {
@@ -19,7 +19,7 @@ exports.getStatus = cb => {
 };
 
 exports.getUsers = cb => {
-  axios('/api/v1/users')
+  axios('http://localhost:3001/api/v1/users')
     .then(res => res.data)
     .then(data => cb(null, data))
     .catch(err => {
