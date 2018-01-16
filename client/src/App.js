@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import io from 'socket.io-client';
+import Loader from 'react-loaders';
+
+import 'loaders.css/loaders.css/src/animations/line-scale.scss';
 import './App.css';
 
 class App extends Component {
   state = {
+    isLoading: true,
     url: {
       users: 'http://localhost:3002/users',
       news: 'http://localhost:3002/news',
@@ -24,6 +27,8 @@ class App extends Component {
   handleNews = () => {
     const { url } = this.state;
     const socket = io.connect(url.news);
+
+    // this.setState({ isLoading: false });
 
     socket.emit('request data', 1000);
     socket.on('data', data => {
@@ -52,7 +57,14 @@ class App extends Component {
   };
 
   render() {
-    const { news, status, users } = this.state;
+    const { isLoading, news, status, users } = this.state;
+    let loader = <Loader type="ball-scale-multiple" />
+
+    if (isLoading) {
+      return (
+        loader
+      );
+    }
 
     return (
       <div className="App">
@@ -68,7 +80,7 @@ class App extends Component {
             </ul>
           </React.Fragment>
         ) : (
-          <span>Nothing to show.</span>
+          <span>Loading...</span>
         )}
 
         <h1>Status</h1>
@@ -83,7 +95,7 @@ class App extends Component {
             </ul>
           </React.Fragment>
         ) : (
-          <span>Nothing to show.</span>
+          <span>Loading...</span>
         )}
 
         <h1>Users</h1>
@@ -93,7 +105,7 @@ class App extends Component {
             <ul>{users.map((item, index) => <li key={index}>{item}</li>)}</ul>
           </React.Fragment>
         ) : (
-          <span>Nothing to show.</span>
+          <span>Loading...</span>
         )}
       </div>
     );
