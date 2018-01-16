@@ -1,0 +1,30 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  color: #464646;
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: "Gotham Book", sans-serif;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Gotham', sans-serif;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+h4 {
+  font-family: 2rem;
+  font-family: 'Gotham Book', sans-serif;
+  font-weight: 600;
+}
