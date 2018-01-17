@@ -14,10 +14,7 @@ const apiController = require('./controllers/api');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const PORT_SOCKET = 3002;
-server.listen(PORT_SOCKET, () => {
-  console.log(`socket listening on port ${PORT_SOCKET}`);
-});
+app.set('port', process.env.PORT || 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -106,6 +103,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+server.listen(app.get('port'), () => {
+  console.log('socket listening on port %s', app.get('port'));
 });
 
 module.exports = app;

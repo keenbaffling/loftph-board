@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+var dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
+
 var app = require('../app');
 var debug = require('debug')('loftph-board:server');
 var http = require('http');
@@ -28,6 +31,21 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+var io = require('socket.io')(server);
+io.on('connection', function (socket) {
+  let intervalId = setInterval(function () {
+    socket.emit('news', { hello: 'world' });
+  }, 1000);
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+
+  socket.on('disconnect', function () {
+    clearInterval(intervalId);
+    console.log('client disconnected');
+  });
+});
 
 /**
  * Normalize a port into a number, string, or false.

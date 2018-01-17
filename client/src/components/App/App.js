@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import io from 'socket.io-client';
 
 import '../../assets/fonts/gotham/stylesheet.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 import Status from '../Status';
@@ -13,9 +14,9 @@ class App extends Component {
   state = {
     isLoading: true,
     url: {
-      users: 'http://localhost:3002/users',
-      news: 'http://localhost:3002/news',
-      status: 'http://localhost:3002/status'
+      users: 'http://localhost:3000/api/v1/users',
+      news: 'http://localhost:3000/news',
+      status: 'http://localhost:3000/api/v1/status'
     },
     users: [],
     news: [],
@@ -23,17 +24,17 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.handleUsers();
+    // this.handleUsers();
     this.handleNews();
-    this.handleStatus();
+    // this.handleStatus();
   }
 
   handleNews = () => {
     const { url } = this.state;
-    const socket = io.connect(url.news);
+    const socket = io.connect('http://localhost:3000');
 
-    socket.emit('request data', 1000);
-    socket.on('data', data => {
+    socket.emit('request news', 1000);
+    socket.on('news data', data => {
       this.setState({ news: data });
     });
   };
@@ -66,9 +67,21 @@ class App extends Component {
         <Helmet>
           <title>LOFT Coworking Philippines</title>
         </Helmet>
-        <News news={news} />
-        <Status status={status} />
-        <InSpace users={users} />
+        <div className="container-fluid">
+          <div className="row">
+            <div className="block block--top">
+              <News news={news} />
+            </div>
+            <div className="block block--bottom">
+              <div className="col-md-6">
+                <Status status={status} />
+              </div>
+              <div className="col-md-6">
+                <InSpace users={users} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
