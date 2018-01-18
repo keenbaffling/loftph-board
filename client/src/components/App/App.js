@@ -13,11 +13,7 @@ import InSpace from '../InSpace';
 class App extends Component {
   state = {
     isLoading: true,
-    url: {
-      users: 'http://localhost:3000/api/v1/users',
-      news: 'http://localhost:3000/news',
-      status: 'http://localhost:3000/api/v1/status'
-    },
+    url: 'http://localhost:3000',
     users: [],
     news: [],
     status: []
@@ -31,11 +27,12 @@ class App extends Component {
 
   handleNews = () => {
     const { url } = this.state;
-    const socket = io.connect('http://localhost:3000');
+    const socket = io.connect(url);
 
     socket.emit('request news', 1000);
-    socket.on('news data', data => {
-      this.setState({ news: data });
+    socket.on('news', data => {
+      console.log(data);
+      // this.setState({ news: data });
     });
   };
 

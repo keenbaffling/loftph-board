@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/news', (req, res) => {
+  res.io.sockets.emmit('news', 'news');
   res.json([
     {
       id: 1,
