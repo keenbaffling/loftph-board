@@ -3,12 +3,9 @@ import React from 'react';
 export default ({ users }) => {
   return (
     <div>
-      <h1>In Space</h1>
-
       {!!users && !!users.length ? (
         <React.Fragment>
-          {/* {console.log(users)} */}
-          <ul>{users.map((item, index) => <li key={index}>{item}</li>)}</ul>
+          {users.map((item, index) => <img className="img img--avatar" key={index} src={item} alt="" />)}
         </React.Fragment>
       ) : (
         <span>Loading...</span>
