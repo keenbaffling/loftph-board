@@ -1,11 +1,20 @@
 import React from 'react';
+import anime from 'animejs';
 
-export default ({ users }) => {
+export default ({ users: items }) => {
+  let animate = anime({
+
+  });
+
   return (
-    <div>
-      {!!users && !!users.length ? (
+    <div className="avatar">
+      {!!items && !!items.length ? (
         <React.Fragment>
-          {users.map((item, index) => <img className="img img--avatar" key={index} src={item} alt="" />)}
+          {items.map((item, index) => (
+            <div className="avatar__item" key={index}>
+              <img className="img avatar__item-img" src={item} alt="" />
+            </div>
+          ))}
         </React.Fragment>
       ) : (
         <span>Loading...</span>
