@@ -48,9 +48,9 @@ class App extends Component {
     // this.handleNews();
     // this.handleStatus();
 
-    // setTimeout(() => {
-    //   this.setState({ isLoading: false });
-    // }, 2000);
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 2000);
   }
 
   handleNews = () => {
@@ -87,9 +87,9 @@ class App extends Component {
   render() {
     const { isLoading, news, status, users } = this.state;
 
-    // if (isLoading) {
-    //   return <div>Loading...</div>;
-    // }
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
     return (
       <React.Fragment>

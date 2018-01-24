@@ -2,11 +2,7 @@ import React from 'react';
 
 import ListItem from './ListItem';
 
-export default (props) => {
-  const listItems = props.status.map((item, index) => {
-    return <ListItem title={item.title} count={item.total - item.occupied} key={index} />
-  });
-
+export default props => {
   return (
     <div className="status">
       <header className="status__header">
@@ -14,7 +10,13 @@ export default (props) => {
       </header>
       <div className="status__content">
         {!!props.status.length ? (
-          listItems
+          props.status.map((item, index) => (
+            <ListItem
+              title={item.title}
+              count={item.total - item.occupied}
+              key={index}
+            />
+          ))
         ) : (
           <div style={{ color: '#fff' }}>Nothing to show.</div>
         )}
