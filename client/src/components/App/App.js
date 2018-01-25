@@ -9,6 +9,7 @@ import './App.css';
 import Status from '../Status';
 import News from '../News';
 import InSpace from '../InSpace';
+import Slack from '../Slack';
 
 class App extends Component {
   state = {
@@ -39,6 +40,18 @@ class App extends Component {
         total: '4',
         occupied: '2',
         id: 2
+      },
+      {
+        title: 'Patio',
+        total: '40',
+        occupied: '12',
+        id: 2
+      },
+      {
+        title: 'Event Space',
+        total: '4',
+        occupied: '3',
+        id: 2
       }
     ]
   };
@@ -47,7 +60,6 @@ class App extends Component {
     // this.handleUsers();
     // this.handleNews();
     // this.handleStatus();
-
     // setTimeout(() => {
     //   this.setState({ isLoading: false });
     // }, 2000);
@@ -85,7 +97,7 @@ class App extends Component {
   };
 
   render() {
-    const { isLoading, news, status, users } = this.state;
+    const { news, status, users } = this.state;
 
     // if (isLoading) {
     //   return <div>Loading...</div>;
@@ -99,10 +111,20 @@ class App extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="block block--top">
-              <News news={news} />
+              <div className="block__content block__content--1" style={{'display': 'none'}}>
+                Video goes here.
+              </div>
+              <div className="block__content block__content--2">
+                <div className="col-md-6 slack--wrap">
+                  <Slack />
+                </div>
+                <div className="col-md-6 news--wrap">
+                  <News news={news} />
+                </div>
+              </div>
             </div>
             <div className="block block--bottom">
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +144,11 @@ class App extends Component {
                   </g>
                 </svg>
               </div>
-              <div className="col-md-8">
+
+              <div className="col-md-5">
                 <Status status={status} />
+              </div>
+              <div className="col-md-4">
                 <InSpace users={users} />
               </div>
             </div>

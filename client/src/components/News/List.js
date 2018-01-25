@@ -8,14 +8,14 @@ export default props => {
   return (
     <React.Fragment>
       {!!items && !!items.length ? (
-        <div className="news news--wrap mb-0">
+        <div className="news">
           <div className="news__overlay" />
           {items.map((item, index) => (
             <ListItem
-              index={index}
               date={item.date}
               title={item.title}
               location={item.location}
+              key={index}
             />
           ))}
         </div>

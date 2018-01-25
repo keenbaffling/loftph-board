@@ -6,7 +6,7 @@ export default props => {
   return (
     <div className="status">
       <header className="status__header">
-        <h3 className="status__heading">Spaces Available</h3>
+        <h3 className="status__heading">Spaces Available:</h3>
       </header>
       <div className="status__content">
         {!!props.status.length ? (

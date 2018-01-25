@@ -2,12 +2,12 @@ import React from 'react';
 import moment from 'moment';
 
 export default props => {
-  const { index, date, title, location } = props;
+  const { date, title, location } = props;
   const month = moment(date).format('MMM');
   const day = moment(date).format('D');
 
   return (
-    <div className="news__item news__item--shadow" key={index}>
+    <div className="news__item news__item--shadow">
       <div className="news__sched">
         <div className="news__month">{month}</div>
         <div className="news__day">{day}</div>

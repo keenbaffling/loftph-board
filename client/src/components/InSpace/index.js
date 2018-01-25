@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import anime from 'animejs';
 
 export default class extends Component {
   constructor(props) {
