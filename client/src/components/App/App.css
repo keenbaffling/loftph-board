@@ -233,7 +233,7 @@ p {
 
 .avatar__item {
   display: inline-block;
-  margin: 0 1rem;
+  margin: 0 .8rem;
 }
 
 .avatar__item-img {

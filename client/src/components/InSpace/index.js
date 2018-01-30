@@ -7,26 +7,6 @@ export default class extends Component {
     this.state = {};
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
-
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount');
-
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-
-  }
-
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps');
-
-  }
-
   render() {
     const { users: items } = this.props;
 
