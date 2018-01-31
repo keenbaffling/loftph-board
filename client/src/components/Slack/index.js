@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import Slack from 'slack';
 // import axios from 'axios';
-// import _ from 'lodash';
+import _ from 'lodash';
 // import WebSocket from 'ws';
 
 import List from './List';
 
-// const SLACK_BOT_TOKEN =
-//   'xoxp-45222654323-244390577154-304476325029-fccb6fd608d99c6f647b80de9205801a';
-const SLACK_BOT_TOKEN = 'xoxp-45222654323-244390577154-284534660528-ee37de8b670fc9609409542dfcbc85d2';
-const SLACK_CLIENT_ID = '45222654323.277629061831';
-const SLACK_CLIENT_SECRET = 'e3c6dc2fdb68b991f46ead58a1ec5555';
-const SLACK_CHANNEL = 'C8ZDH5GTH';
+const SLACK_BOT_TOKEN = process.env.REACT_APP_SLACK_BOT_TOKEN;
+const SLACK_CLIENT_ID = process.env.REACT_APP_SLACK_CLIENT_ID;
+const SLACK_CLIENT_SECRET = process.env.REACT_APP_SLACK_CLIENT_SECRET;
+const SLACK_CHANNEL = process.env.REACT_APP_SLACK_CHANNEL;
+
 const bot = new Slack({ token: SLACK_BOT_TOKEN });
 
 export default class extends Component {
@@ -23,17 +22,18 @@ export default class extends Component {
       history: [],
       channel: [],
       members: [],
-      emoji: []
+      emoji: [],
+      message: []
     };
   }
 
   componentDidMount() {
     this.rtmConnect();
     // this.rtmStart();
-    // this.getHistory(SLACK_CHANNEL);
-    // this.getChannelInfo(SLACK_CHANNEL);
-    // this.getUsersList();
-    // this.getEmoji();
+    this.getHistory(SLACK_CHANNEL);
+    this.getChannelInfo(SLACK_CHANNEL);
+    this.getUsersList();
+    this.getEmoji();
   }
 
   getHistory = channel => {
@@ -41,7 +41,7 @@ export default class extends Component {
       .history({
         channel
       })
-      .then(res => res.messages)
+      .then(res => _.reverse(res.messages,))
       .then(history => this.setState({ history }))
       .catch(console.error);
   };
@@ -95,34 +95,37 @@ export default class extends Component {
   };
 
   handleRTM = () => {
-    const WebSocket = require('ws');
-    const ws = new WebSocket(this.state.url, {
-      perMessageDeflate: false
-    });
+    // const WebSocket = require('ws');
+    const ws = new WebSocket(this.state.url);
 
-    // ws.on('open', () => {
-    //   console.log('connection open');
-    // });
 
-    // ws.on('message', (data) => {
-    //   console.log(data);
-    // });
+    ws.onmessage = event => {
+      const data = JSON.parse(event.data);
 
-    // socket.onerror = error => console.error(error);
+      switch (data.type) {
+        case 'message':
+          if (data.channel === SLACK_CHANNEL) {
+            this.setState({ history: this.state.history.concat(data) });
+          }
+          break;
 
-    // console.log(this.state.url);
-
-    // const io = require('socket.io-client');
-    // const socket = io(this.state.url);
+        default:
+          break;
+      }
+    };
   };
 
   render() {
-    // const { } = this.state;
+    const { history } = this.state;
 
     return (
       <React.Fragment>
-        Loading...
+        {/* Loading... */}
         {/* <List messages={messages} /> */}
+
+        {!!history.length && history.map((item, index) => (
+          <li key={index}>{item.user} | {item.text}</li>
+        ))}
       </React.Fragment>
     );
   }
